@@ -11,12 +11,12 @@
 
 #include <xthread/base.h>
 
-XENUM(xResult){
+XDEF_ENUM(xResult){
   xResult_Ok  = 0,
   xResult_Err = -1,
 };
 
-XENUM(xErrno){
+XDEF_ENUM(xErrno){
   xErrno_Unknown = 0,
 };
 

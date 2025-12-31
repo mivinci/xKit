@@ -16,15 +16,15 @@
 
 #endif
 
-#define XSTRUCT(T)                                                             \
+#define XDEF_STRUCT(T)                                                         \
   typedef struct T T;                                                          \
   struct T
 
-#define XENUM(T)                                                               \
+#define XDEF_ENUM(T)                                                           \
   typedef int T;                                                               \
   enum
 
-#define XHANDLE(T) typedef void *T
+#define XDEF_HANDLE(T) typedef void *T
 
 #ifdef __STDC_VERSION__ /* C99 and later */
 #include <stdbool.h>

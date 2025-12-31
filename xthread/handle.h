@@ -15,19 +15,19 @@
  * @brief Opaque handle to a task.
  * @ingroup xTask
  */
-XHANDLE(xTask);
+XDEF_HANDLE(xTask);
 
 /**
  * @brief Opaque handle to a process.
  * @ingroup xProc
  */
-XHANDLE(xProc);
+XDEF_HANDLE(xProc);
 
 /**
  * @brief Opaque handle to a queue.
  * @ingroup xQueue
  */
-XHANDLE(xQueue);
+XDEF_HANDLE(xQueue);
 
 /**
  * @brief Generic function pointer type.

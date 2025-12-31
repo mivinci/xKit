@@ -13,7 +13,7 @@
 #include <xthread/error.h>
 #include <xthread/handle.h>
 
-XENUM(xTaskFlag){
+XDEF_ENUM(xTaskFlag){
   xTaskFlag_Mandatory = 1,
 };
 

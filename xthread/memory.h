@@ -11,11 +11,17 @@
 
 #include <xthread/base.h>
 
-#define XVTABLENAME(T)     T##VTable
-#define XVTABLE(T)         static xVTable XVTABLENAME(T) =
-#define XMALLOC(T)         (T *)xAlloc(#T, sizeof(T), &XVTABLENAME(T))
-#define XMALLOCEX(T, ex)   (T *)xAlloc(#T, sizeof(T) + (ex), &XVTABLENAME(T))
-#define XMALLOCARRAY(T, n) (T *)xAlloc(#T, sizeof(T) * (n), &XVTABLENAME(T))
+#define XSYM_VTABLE(T) T##VTable
+#define XSYM_CTOR(T)   T##Ctor
+#define XSYM_DTOR(T)   T##Dtor
+
+#define XDEF_VTABLE(T) static xVTable XSYM_VTABLE(T) =
+#define XDEF_CTOR(T)   static void XSYM_CTOR(T)(T * self)
+#define XDEF_DTOR(T)   static void XSYM_DTOR(T)(T * self)
+
+#define XMALLOC(T)         (T *)xAlloc(#T, sizeof(T), &XSYM_VTABLE(T))
+#define XMALLOCEX(T, ex)   (T *)xAlloc(#T, sizeof(T) + (ex), &XSYM_VTABLE(T))
+#define XMALLOCARRAY(T, n) (T *)xAlloc(#T, sizeof(T) * (n), &XSYM_VTABLE(T))
 
 /**
  * @brief Size type for memory allocations.
@@ -27,7 +33,7 @@ typedef unsigned long xSize;
  * @brief Virtual table for object lifecycle management.
  * @ingroup xObject
  */
-XSTRUCT(xVTable) {
+XDEF_STRUCT(xVTable) {
   void (*ctor)(void *ptr);
   void (*dtor)(void *ptr);
   void (*retain)(void *ptr);

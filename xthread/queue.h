@@ -17,7 +17,7 @@
  * @brief Quality of Service levels for queues.
  * @ingroup xQueue
  */
-XENUM(xQueueQos){
+XDEF_ENUM(xQueueQos){
   xQueueQoS_Default = 0,
   xQueueQoS_Low,
   xQueueQoS_High,
@@ -35,7 +35,7 @@ XCAPI(xQueue) xQueueCreate(const char *name, xQueueQos qos);
 /**
  * @brief Push a task to a queue.
  * @ingroup xQueue
- * @param queu The handle to the queue.
+ * @param queue The handle to the queue.
  * @param task The task to push.
  * @return The result of the operation.
  */

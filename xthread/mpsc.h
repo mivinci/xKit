@@ -15,7 +15,7 @@
  * @brief Multi-producer single-consumer queue.
  * @ingroup xMpsc
  */
-XSTRUCT(xMpsc) { xMpsc *volatile next; };
+XDEF_STRUCT(xMpsc) { xMpsc *volatile next; };
 
 /**
  * @brief Push a node to the queue, can be called concurrently.

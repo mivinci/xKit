@@ -11,7 +11,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-XSTRUCT(Header) {
+XDEF_STRUCT(Header) {
   const char *name; /* for debug */
   xSize       size;
   xSize       refs;
