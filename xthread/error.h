@@ -1,0 +1,31 @@
+/*
+ * Copyright 2025 The xKit Authors. All rights reserved.
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ *
+ * error.h - Error handling
+ */
+
+#ifndef XTHREAD_ERROR_H
+#define XTHREAD_ERROR_H
+
+#include <xthread/base.h>
+
+XENUM(xResult){
+  xResult_Ok  = 0,
+  xResult_Err = -1,
+};
+
+XENUM(xErrno){
+  xErrno_Unknown = 0,
+};
+
+/**
+ * @brief Throw an error.
+ * @param err error code
+ * @param fmt format string.
+ * @param ... arguments to the format string.
+ */
+void xThrow(xErrno err, const char *fmt, ...);
+
+#endif // XTHREAD_ERROR_H
