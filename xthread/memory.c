@@ -6,6 +6,7 @@
  * memory.c - Memory allocation and reference counting
  */
 
+#include <xthread/atomic.h>
 #include <xthread/memory.h>
 
 #include <stddef.h>
@@ -13,12 +14,12 @@
 
 XDEF_STRUCT(Header) {
   const char *name; /* for debug */
-  xSize       size;
-  xSize       refs;
+  size_t      size;
+  size_t      refs;
   xVTable    *vtab;
 };
 
-void *xAlloc(const char *name, const xSize size, xVTable *vtab) {
+void *xAlloc(const char *name, const size_t size, xVTable *vtab) {
   Header *hdr;
   void   *ptr;
 
@@ -61,7 +62,7 @@ void xRetain(void *ptr) {
   if (vtab->retain) {
     vtab->retain(ptr);
   }
-  __atomic_fetch_add(&hdr->refs, 1, __ATOMIC_SEQ_CST);
+  xAtomicAdd(&hdr->refs, 1, __ATOMIC_SEQ_CST);
 }
 
 void xRelease(void *ptr) {
@@ -74,7 +75,7 @@ void xRelease(void *ptr) {
   if (vtab->release) {
     vtab->release(ptr);
   }
-  if (__atomic_fetch_sub(&hdr->refs, 1, __ATOMIC_SEQ_CST) == 1) {
+  if (xAtomicSub(&hdr->refs, 1, __ATOMIC_SEQ_CST) == 0) {
     xFree(ptr);
   }
 }

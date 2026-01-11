@@ -9,6 +9,7 @@
 #ifndef XTHREAD_MEMORY_H
 #define XTHREAD_MEMORY_H
 
+#include <stddef.h>
 #include <xthread/base.h>
 
 #define XSYM_VTABLE(T) T##VTable
@@ -24,14 +25,8 @@
 #define XMALLOCARRAY(T, n) (T *)xAlloc(#T, sizeof(T) * (n), &XSYM_VTABLE(T))
 
 /**
- * @brief Size type for memory allocations.
- * @ingroup xObject
- */
-typedef unsigned long xSize;
-
-/**
  * @brief Virtual table for object lifecycle management.
- * @ingroup xObject
+ * @ingroup xMemory
  */
 XDEF_STRUCT(xVTable) {
   void (*ctor)(void *ptr);
@@ -44,38 +39,38 @@ XDEF_STRUCT(xVTable) {
 
 /**
  * @brief Allocate an object with the given size and vtable.
- * @ingroup xObject
+ * @ingroup xMemory
  * @param name The name of the object type.
  * @param size The size of the object to allocate.
  * @param vtab The virtual table for the object.
  * @return A pointer to the allocated object.
  */
-XCAPI(void *) xAlloc(const char *name, xSize size, xVTable *vtab);
+XCAPI(void *) xAlloc(const char *name, size_t size, xVTable *vtab);
 
 /**
  * @brief Free an allocated object.
- * @ingroup xObject
+ * @ingroup xMemory
  * @param ptr The pointer to the object to free.
  */
 XCAPI(void) xFree(void *ptr);
 
 /**
  * @brief Retain a reference to an object.
- * @ingroup xObject
+ * @ingroup xMemory
  * @param ptr The pointer to the object.
  */
 XCAPI(void) xRetain(void *ptr);
 
 /**
  * @brief Release a reference to an object.
- * @ingroup xObject
+ * @ingroup xMemory
  * @param ptr The pointer to the object.
  */
 XCAPI(void) xRelease(void *ptr);
 
 /**
  * @brief Copy an object.
- * @ingroup xObject
+ * @ingroup xMemory
  * @param ptr The pointer to the object to copy.
  * @param other The pointer to the object to copy to.
  */
@@ -83,7 +78,7 @@ XCAPI(void) xCopy(void *ptr, void *other);
 
 /**
  * @brief Move an object.
- * @ingroup xObject
+ * @ingroup xMemory
  * @param ptr The pointer to the object to move.
  * @param other The pointer to the object to move to.
  */
